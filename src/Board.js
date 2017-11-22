@@ -1,5 +1,4 @@
-import ReactDOM from 'react-dom';
-import React, { Component } from 'react';
+import React from 'react';
 import {
   DataTable,
   TableBody,
@@ -9,10 +8,11 @@ import {
 } from 'react-md';
 import './TableBoard.css';
 
-const Board = ({ index, text, handleChanget1, handleStart, handleClick }) => {
+const Board = ({ index, text, handleChanget1, handleStart, handleClick, initialNumbers}) => {
 
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
+   debugger;
     return (
       <div className="TableBoard">
   <DataTable plain>
@@ -20,8 +20,7 @@ const Board = ({ index, text, handleChanget1, handleStart, handleClick }) => {
     <TableRow>
           <TableColumn><input type="text" className='TableColumn__text' 
           id="t1"
-          value={text.t1}
-          onChange={(e) => handleChanget1(index, 't1', e)}
+          value={initialNumbers.t1}
           disabled></input></TableColumn>
           
         <TableColumn><input type="text"  className='TableColumn__text' 
@@ -43,8 +42,7 @@ const Board = ({ index, text, handleChanget1, handleStart, handleClick }) => {
           <TableColumn><input type="text"  className='TableColumn__text' id="t5" value={text.t5}
           onChange={(e) => handleChanget1(index, 't5', e)}></input></TableColumn>
 
-          <TableColumn><input type="text" className='TableColumn__text' id="t6" value={text.t6}
-          onChange={(e) => handleChanget1(index, 't6', e)} disabled>
+          <TableColumn><input type="text" className='TableColumn__text' id="t6" value={initialNumbers.t6} disabled>
           </input></TableColumn>
     </TableRow>
 
@@ -52,8 +50,8 @@ const Board = ({ index, text, handleChanget1, handleStart, handleClick }) => {
           <TableColumn><input type="text" className='TableColumn__text' id="t7" value={text.t7}
           onChange={(e) => handleChanget1(index, 't7', e)}></input></TableColumn>
 
-          <TableColumn><input type="text"  className='TableColumn__text' id="t8" value={text.t8} 
-          onChange={(e) => handleChanget1(index, 't8', e)} disabled></input></TableColumn>
+          <TableColumn><input type="text"  className='TableColumn__text' id="t8" value={initialNumbers.t8} 
+           disabled></input></TableColumn>
 
           <TableColumn><input type="text" className='TableColumn__text' id="t9" value={text.t9} 
           onChange={(e) => handleChanget1(index, 't9', e)}></input></TableColumn>
@@ -61,7 +59,7 @@ const Board = ({ index, text, handleChanget1, handleStart, handleClick }) => {
 
         <TableRow>
         <TableColumn>
-        <Button flat primary swapTheming onClick={()=> handleStart(index)}>Start</Button></TableColumn>
+        <Button flat primary swapTheming onClick={(e)=> handleStart(e)}>Start</Button></TableColumn>
         <TableColumn><Button flat primary swapTheming 
         id="click" onClick={(e) => handleClick(e,index)}>
                       Check</Button></TableColumn>
