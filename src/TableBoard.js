@@ -1,220 +1,114 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Button } from 'react-md';
-import {
-  DataTable,
-  TableBody,
-  TableRow,
-  TableColumn,
-} from 'react-md';
-import './TableBoard.css';
+import { startGame } from './actions/startGame';
+import Board from './Board';
 
- var check1,check6,check8;
+var check1, check6, check8;
+
 class TableBoard extends Component {
+    constructor(props) {
+        super(props);
 
-constructor(props) {
-    super(props);
-    this.state = {
-          t1:'',
-          t2:'',
-          t3:'',
-          t4:'',
-          t5:'',
-          t6:'',
-          t7:'',
-          index:0,
-      }; 
-  }
-
-handleChanget1(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t1:e.target.value
-    })
-}
+        this.state = {
+            texts: [{
+                t1: '',
+                t2: '',
+                t3: '',
+                t4: '',
+                t5: '',
+                t6: '',
+                t7: '',
+                t8: '',
+                t9: '',
+            }]
+        };
 
 
-handleChanget2(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t2:e.target.value
-    })
-}
+        this.handleChanget1 = this.handleChanget1.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleStart = this.handleStart.bind(this);
 
-handleChanget3(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t3:e.target.value
-    })
-}
-
-handleChanget4(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t4:e.target.value
-    })
-}
-
-handleChanget5(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t5:e.target.value
-    })
-}
-
-handleChanget6(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t6:e.target.value
-    })
-}
-
-handleChanget7(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t7:e.target.value
-    })
-}
-
-handleChanget8(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t8:e.target.value
-    })
-}
-
-handleChanget9(e){
-    //debugger;
-    this.setState(prevState => {
-       return {index: prevState.index + 1}
-    })
-  // var a = this.state.texts;
- //  a[this.state.index] = value;
-    this.setState({
-        t9:e.target.value
-    })
-}
-
-handleStart() {
-    check1=Math.floor((1+Math.random()*9))
-    check6=Math.floor((1+Math.random()*9))
-    check8=Math.floor((1+Math.random()*9))
-    if(check1 !== check6 && check1 !== check8 && check6 !== check8) {
-    this.setState({
-    t1:check1,
-    t6:check6,
-    t8:check8,
-    })
     }
-    else{
-        this.handleStart();
+
+    handleChanget1(i, field, e) {
+        const value = e.target.value;
+
+        this.setState(() => {
+            const texts = this.state.texts;
+            const text = texts[i];
+            text[field] = value;
+            texts[i] = text;
+            return { texts };
+        });
     }
-}
-handleClick(e) { 
-   var sum;
-   sum = parseInt(this.state.t1)+parseInt(this.state.t2)+parseInt(this.state.t3)+parseInt(this.state.t4)+parseInt(this.state.t5)+parseInt(this.state.t6)+parseInt(this.state.t7)+parseInt(this.state.t8)+parseInt(this.state.t9); 
-    if(sum === 45) {
-        alert("Congrats winner");
-    }
-    else{
-        alert("check you answer");
+
+    handleStart(e) {
+        debugger;
+        // check1=Math.floor((1+Math.random()*9))
+        // check6=Math.floor((1+Math.random()*9))
+        // check8=Math.floor((1+Math.random()*9))
+
+        // console.log(check1+" ==>  "+check6+" ==>  "+check8);
+
+        // if(check1 !== check6 && check1 !== check8 && check6 !== check8) {
+        // const texts = this.state.texts;
+        // const text = texts[i];
+        // this.setState(() =>{
+        this.props.dispatch(startGame());
         e.preventDefault();
+        // text['t1'] = check1;
+        // text['t6'] = check6;
+        // text['t8'] = check8;
+
+        // return {text};
+        // });
+        // }
+        // else{
+        //     this.handleStart();
+        // }
     }
-  }
-  render() {
-    return (
-      <div className="TableBoard">
-  <DataTable plain>
-    <TableBody>
-    <TableRow>
-          <TableColumn><input type="text" className='TableColumn__text' 
-          value={this.state.t1}
-          onChange={(e)=>{this.handleChanget1(e)}}
-          disabled></input></TableColumn>
-          
-        <TableColumn><input type="text"  className='TableColumn__text' 
-          value={this.state.t2} 
-          onChange={(e)=>{this.handleChanget2(e)}}
-          ></input></TableColumn>
-        
-          <TableColumn><input type="text" className='TableColumn__text' value={this.state.t3}
-          onChange={(e)=>{this.handleChanget3(e)}}
-          ></input></TableColumn>
-    </TableRow>
 
-    <TableRow>
-          <TableColumn><input type="text" className='TableColumn__text' value={this.state.t4}
-          onChange={(e)=>{this.handleChanget4(e)}}></input></TableColumn>
+    handleClick(e, i) {
+        var sum;
+        const texts = this.state.texts;
+        const text = texts[i];
+        sum = parseInt(text['t1']) + parseInt(text['t2']) + parseInt(text['t3']) + parseInt(text['t4']) + parseInt(text['t5']) +
+            parseInt(text['t6']) + parseInt(text['t7']) + parseInt(text['t8']) + parseInt(text['t9']);
+        if (sum === 45) {
+            alert("Congrats winner");
+            e.preventDefault();
+        }
+        else {
+            alert("check you answer");
+            e.preventDefault();
+        }
+    }
 
-          <TableColumn><input type="text"  className='TableColumn__text' value={this.state.t5}
-          onChange={(e)=>{this.handleChanget5(e)}}></input></TableColumn>
-
-          <TableColumn><input type="text" className='TableColumn__text' value={this.state.t6}
-          onChange={(e)=>{this.handleChanget6(e)}} disabled>
-          </input></TableColumn>
-    </TableRow>
-
-    <TableRow>
-          <TableColumn><input type="text" className='TableColumn__text' value={this.state.t7}
-          onChange={(e)=>{this.handleChanget7(e)}}></input></TableColumn>
-
-          <TableColumn><input type="text"  className='TableColumn__text' value={this.state.t8} 
-          onChange={(e)=>{this.handleChanget8(e)}} disabled></input></TableColumn>
-
-          <TableColumn><input type="text" className='TableColumn__text' value={this.state.t9} 
-          onChange={(e)=>{this.handleChanget9(e)}}></input></TableColumn>
-    </TableRow>
-
-        <TableRow>
-        <TableColumn>
-        <Button flat primary swapTheming onClick={()=>{this.handleStart()}}>Start</Button></TableColumn>
-        <TableColumn><Button flat primary swapTheming onClick={()=>{this.handleClick()}}>
-                      Check</Button></TableColumn>
-       </TableRow>               
-    </TableBody>
-  </DataTable>
-      </div>
-    );
-  }
+    render() {
+        const {texts} = this.state;
+        const {initialNumbers} = this.props;
+        return (
+            <div>
+                {texts.map((text, i) => (
+                    <Board
+                        key={i}
+                        index={i}
+                        text={text}
+                        initialNumbers={this.props.initialNumbers[i]}
+                        handleChanget1={this.handleChanget1}
+                        handleClick={this.handleClick}
+                        handleStart={this.handleStart}
+                        />
+                ))}
+            </div>
+        );
+    }
 }
 
-export default TableBoard;
+function mapStateToProps(state) {
+    debugger;
+    return { initialNumbers: state.startgame.texts };
+}
+
+export default connect(mapStateToProps)(TableBoard);
